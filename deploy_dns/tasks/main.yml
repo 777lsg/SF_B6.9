@@ -1,0 +1,41 @@
+---
+# tasks file for deploy_dns
+#- name: "update"
+#  apt:
+#    update_cache: yes
+
+- name: "disable/stop system-resolved"
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+
+- name: "add file"
+  copy:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+
+- name: "update"
+  apt:
+    update_cache: yes
+
+- name: "install dnsmasq"
+  apt:
+    name: dnsmasq
+    state: latest
+
+- name: "service dnsmasq"
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes
+
+- name: "file dnsmasq"
+  copy:
+    src: dnsmasq.conf
+    dest: /etc/dnsmasq.conf
+  notify: restart_dns
+#- name: "restart dnsmasq"
+#   service:
+#    name: dnsmasq
+#    state: restarted

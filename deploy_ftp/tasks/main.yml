@@ -1,0 +1,16 @@
+---
+# tasks file for ftp
+#- name: "update"
+#  ansible.builtin.apt:
+#    update_cache: yes
+
+- name: "install vsftpd"
+  ansible.builtin.apt:
+    name: vsftpd
+    state: present
+
+- name: "service vsftpd"
+  service:
+    name: vsftpd
+    state: started
+    enabled: yes

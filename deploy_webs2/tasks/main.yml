@@ -1,0 +1,18 @@
+---
+# tasks file for deploy_webs2
+- name: "create directory"
+  file:
+    path: /opt/nginx/ansible
+    state: directory
+
+
+- name: "copy index.php new directory"
+  copy:
+    src: index.php
+    dest: /opt/nginx/ansible
+
+- name: "copy new default file nginx"
+  copy:
+    src: default
+    dest: /etc/nginx/sites-available/default
+  notify: reload_nginx

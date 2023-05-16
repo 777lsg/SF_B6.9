@@ -1,0 +1,7 @@
+---
+# handlers file for deploy_dns
+- name: "restart__svc_dns"
+  listen: restart_dns
+  service:
+    name: dnsmasq
+    state: restarted

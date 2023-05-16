@@ -1,0 +1,34 @@
+---
+# tasks file for deploy_webs1
+- name: "update"
+  apt:
+    update_cache: yes
+
+- name: "install pkg"
+  apt:
+    pkg:
+    - nginx
+    - php
+    - php-fpm
+
+- name: "clear /var/www/html"
+  shell: rm -f /var/www/html/*.html
+    
+
+- name: "copy file index.php"
+  copy:
+    src: index.php
+    dest: /var/www/html/index.php
+
+- name: "copy file nginx defoult"
+  copy:
+    src: default
+    dest: /etc/nginx/sites-available/default
+  notify: reload_nginx
+
+
+
+
+
+
+

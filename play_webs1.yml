@@ -1,0 +1,8 @@
+---
+- name: "deply web server 1"
+  hosts: linux1
+  become: yes
+
+  roles:
+    - deploy_webs1
+    - deploy_webs2

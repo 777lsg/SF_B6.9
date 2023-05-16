@@ -1,0 +1,6 @@
+---
+# handlers file for deploy_webs2
+- name: reload_nginx
+  service:
+    name: nginx
+    state: restarted

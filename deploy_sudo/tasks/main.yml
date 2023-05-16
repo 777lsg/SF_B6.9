@@ -1,0 +1,38 @@
+---
+# tasks file for deploy_sudo
+- name: " create group"
+  group:
+    name: superusers
+    state: present
+
+- name: "create users"
+  user:
+    name: user2
+    group: superusers
+    state: present
+    shell: /bin/bash
+
+- name: "create users"
+  user:
+    name: user3
+    group: superusers
+    state: present
+    shell: /bin/bash
+
+- name: "create key user2"
+  authorized_key:
+    user: user2
+    key: "{{ ssh_public_key }}"
+
+- name: "create key user3"
+  authorized_key:
+    user: user3
+    key: "{{ ssh_public_key }}"
+
+- name: "add group superusers in sudo"
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^%superusers"
+    line: "%superusers ALL=(ALL) NOPASSWD: ALL"
+    validate: /usr/sbin/visudo -cf %s
