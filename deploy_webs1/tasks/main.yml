@@ -7,13 +7,12 @@
 - name: "install pkg"
   apt:
     pkg:
-    - nginx
-    - php
-    - php-fpm
+      - nginx
+      - php
+      - php-fpm
 
 - name: "clear /var/www/html"
   shell: rm -f /var/www/html/*.html
-    
 
 - name: "copy file index.php"
   copy:
@@ -24,11 +23,4 @@
   copy:
     src: default
     dest: /etc/nginx/sites-available/default
-  notify: reload_nginx
-
-
-
-
-
-
-
+  notify: reboot_server

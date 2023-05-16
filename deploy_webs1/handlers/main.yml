@@ -4,3 +4,8 @@
   service:
     name: nginx
     state: restarted
+
+- name: reboot_server
+  reboot:
+    reboot_timeout: 300
+    test_command: uptime
